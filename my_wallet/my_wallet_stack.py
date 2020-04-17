@@ -1,4 +1,5 @@
 from aws_cdk import core
+from . import wallet_service
 
 
 class MyWalletStack(core.Stack):
@@ -7,3 +8,5 @@ class MyWalletStack(core.Stack):
         super().__init__(scope, id, **kwargs)
 
         # The code that defines your stack goes here
+        wallet_service.WalletService(self, "Wallets")
+
