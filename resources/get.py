@@ -22,6 +22,6 @@ def handler(event, context):
     else:
         response = {
             "statusCode": 400,
-            "body": json.dumps("account not available")
+            "body": json.dumps("Wallet is not available")
         }
     return response

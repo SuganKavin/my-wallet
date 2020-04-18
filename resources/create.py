@@ -20,7 +20,7 @@ def handler(event, context):
     trx_table = dynamodb.Table(os.environ['TRANSACTION_TABLE'])
     trxId = str(uuid.uuid1())
     item = {
-        'TrxId': trxId,
+        'id': trxId,
         'OrgId': data['OrgId'],
         'SenderWalletId': data['SenderWalletId'],
         'ReceiverWalletId': data['ReceiverWalletId'],
@@ -62,7 +62,7 @@ def handler(event, context):
 
     result = wallet_table.update_item(
         Key={
-            'WalletId': data['SenderWalletId']
+            'id': data['SenderWalletId']
         },
         UpdateExpression= "SET CurrentBalance = CurrentBalance - :TrxAmount,TrxHistory = list_append(if_not_exists(TrxHistory, :empty_list), :TrxHistory)",
         ExpressionAttributeValues={
@@ -83,7 +83,7 @@ def handler(event, context):
 
     result = wallet_table.update_item(
         Key={
-            'WalletId': data['ReceiverWalletId']
+            'id': data['ReceiverWalletId']
         },
         UpdateExpression= "SET CurrentBalance = CurrentBalance + :TrxAmount, TrxHistory = list_append(if_not_exists(TrxHistory, :empty_list), :TrxHistory)",
         ExpressionAttributeValues={

@@ -85,7 +85,7 @@ class WalletService(core.Construct):
         '''post_integration = apigateway.LambdaIntegration(create_wallet_handler,
                                                                    request_templates={
                                                                        "application/json": '{ "statusCode": "200" }'})'''
-        post_integration = apigateway.LambdaIntegration(create_wallet_handler,
+        post_integration = apigateway.LambdaIntegration(create_trx_handler,
                                                         request_templates={
                                                             "application/json": '{ "statusCode": "200" }'})
 

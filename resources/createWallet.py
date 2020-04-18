@@ -22,7 +22,7 @@ def handler(event, context):
         'CurrentReservedBalance': 0,
         'WalletType': 'BWAL',
         'CurrentBalance': 0,
-        'WalletId': str(uuid.uuid1())
+        'id': str(uuid.uuid1())
     }
     wallet_pwal ={
         'WalletCurrency': data['WalletCurrency'],
@@ -30,7 +30,7 @@ def handler(event, context):
         'CurrentReservedBalance': 0,
         'WalletType': 'PWAL',
         'CurrentBalance': 0,
-        'WalletId': str(uuid.uuid1())
+        'id': str(uuid.uuid1())
     }
 
     logging.info(wallet_bwal)
