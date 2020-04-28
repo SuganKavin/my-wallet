@@ -5,6 +5,7 @@ import time
 import uuid
 import logging
 import boto3
+from datetime import datetime
 
 dynamodb = boto3.resource('dynamodb')
 
@@ -22,7 +23,9 @@ def handler(event, context):
         'CurrentReservedBalance': 0,
         'WalletType': 'BWAL',
         'CurrentBalance': 0,
-        'id': str(uuid.uuid1())
+        'id': str(uuid.uuid1()),
+        'createdAt': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        'updatedAt': datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     }
     wallet_pwal ={
         'WalletCurrency': data['WalletCurrency'],
@@ -30,7 +33,9 @@ def handler(event, context):
         'CurrentReservedBalance': 0,
         'WalletType': 'PWAL',
         'CurrentBalance': 0,
-        'id': str(uuid.uuid1())
+        'id': str(uuid.uuid1()),
+        'createdAt': datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        'updatedAt': datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     }
 
     logging.info(wallet_bwal)

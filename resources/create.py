@@ -3,8 +3,8 @@ import logging
 import os
 import time
 import uuid
-
 import boto3
+from datetime import datetime
 
 dynamodb = boto3.resource('dynamodb')
 
@@ -24,12 +24,13 @@ def handler(event, context):
         'OrgId': data['OrgId'],
         'SenderWalletId': data['SenderWalletId'],
         'ReceiverWalletId': data['ReceiverWalletId'],
-        'TrxDate': timestamp,
+        'createdAt':datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
         'TrxType': data['TrxType'],
         'Reason': data['Reason'],
         'TrxAmount': data['TrxAmount'],
         'TrxCurrency': data['TrxCurrency'],
         'TrxComments': data['TrxComments'],
+        'updatedAt': datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     }
 
     # write the account to the database
@@ -44,8 +45,7 @@ def handler(event, context):
         "TrxType": data['TrxType'],
         "TrxAmount": data['TrxAmount'],
         "Balance": 40,
-        "TrxDate":timestamp
-
+        "createdAt":datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     }
 
     receiverTrxHistory ={
@@ -54,8 +54,7 @@ def handler(event, context):
         "TrxType": data['TrxType'],
         "TrxAmount": data['TrxAmount'],
         "Balance": 40,
-        "TrxDate":timestamp
-
+        "createdAt":datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     }
 
     #nput ='#CurrentBalance'
@@ -72,9 +71,8 @@ def handler(event, context):
                 "TrxType": data['TrxType'],
                 "TrxAmount": data['TrxAmount'],
                 "Balance": 0,
-                "TrxDate":timestamp
-
-            }],
+                "createdAt":datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+           }],
             ':empty_list':[],
             ':TrxAmount':data['TrxAmount']
         },

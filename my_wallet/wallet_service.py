@@ -82,10 +82,14 @@ class WalletService(core.Construct):
                                      rest_api_name="Wallet Service",
                                      description="This service serves Wallets.")
 
-        '''post_integration = apigateway.LambdaIntegration(create_wallet_handler,
+        api_transaction = apigateway.RestApi(self, "Transaction-api",
+                                 rest_api_name="Wallet Service",
+                                 description="This service serves Wallets.")
+
+        post_integration = apigateway.LambdaIntegration(create_wallet_handler,
                                                                    request_templates={
-                                                                       "application/json": '{ "statusCode": "200" }'})'''
-        post_integration = apigateway.LambdaIntegration(create_trx_handler,
+                                                                       "application/json": '{ "statusCode": "200" }'})
+        post_trx_integration = apigateway.LambdaIntegration(create_trx_handler,
                                                         request_templates={
                                                             "application/json": '{ "statusCode": "200" }'})
 
@@ -111,3 +115,5 @@ class WalletService(core.Construct):
         resource.add_method("GET", get_integration)  # GET /{id}
 
         resource.add_method("DELETE", delete_integration)  # DELETE /{id}
+
+        api_transaction.root.add_method("POST", post_trx_integration)  # POST /

@@ -19,3 +19,9 @@ def handler(event, context):
     }
 
     return response
+
+
+'''
+1. hard/soft delete
+  soft delete then we can add additional field to mark as N
+'''
